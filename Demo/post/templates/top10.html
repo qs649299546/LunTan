@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body style="background-color: transparent;">
+    <ol>
+        {% for d in rand_data %}
+        <li>
+            <a href="/post/read/?post_id={{d.0.id}}" onclick="window.top.location.href=this.href">{{d.0.title}}</a>
+            <span style="float: right;">{{d.1}}</span>
+        </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block container %}
+<h2>{{post.title}}</h2>
+
+<div>{{post.date | date:"Y-m-d H:i:s"}} <a href="/post/edit/?post_id={{post.id}}">修改</a></div>
+<hr>
+<p>
+    {{post.content|safe|escape|linebreaks}}
+</p>
+
+{% if tags %}
+<div>
+    <strong>Tags:</strong>
+    {% for tag in tags %}
+    <a href="/post/tag/?tag_id={{tag.id}}">{{tag.name}}</a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<hr>
+<form method="POST" action="/post/comment/">
+    {% csrf_token %}
+    <input type="text" name="name"><br>
+    <input type="hidden" name="post_id" value="{{post.id}}"><br>
+    <textarea name="content" rows="3"></textarea><br>
+    <input type="submit" name="发表评论">
+</form>
+<hr>
+<div>
+    {% for comment in comments %}
+    <p>
+        <div><strong>名称：</strong>{{comment.name}}</div>
+        <div><strong>内容：</strong>{{comment.content|safe|escape|linebreaks}}</div>
+    </p>
+    {% if not forloop.last %}<hr>{% endif %}
+    {% endfor %}
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
